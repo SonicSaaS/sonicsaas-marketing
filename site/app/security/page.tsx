@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function Security() {
   return (
-    <LegalPage title="Security" lastUpdated="March 30, 2026">
+    <LegalPage title="Security" lastUpdated="April 1, 2026">
       <h2>Our Approach</h2>
       <p>
         SonicSaaS manages firewall credentials and fleet operations — we take

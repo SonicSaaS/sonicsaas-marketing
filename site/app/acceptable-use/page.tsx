@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function AcceptableUse() {
   return (
-    <LegalPage title="Acceptable Use Policy" lastUpdated="March 30, 2026">
+    <LegalPage title="Acceptable Use Policy" lastUpdated="April 1, 2026">
       <h2>Authorized Use</h2>
       <p>
         SonicSaaS is intended for managing SonicWall firewall devices that you
