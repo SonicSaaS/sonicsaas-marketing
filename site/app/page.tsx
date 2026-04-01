@@ -1,6 +1,4 @@
 import { WaitlistForm } from "@/components/waitlist-form";
-import { TrustStrip } from "@/components/trust-strip";
-import { HowItWorks } from "@/components/how-it-works";
 import {
   Shield,
   Server,
@@ -95,12 +93,6 @@ export default function Home() {
           </p>
         </div>
       </section>
-
-      {/* Trust Strip */}
-      <TrustStrip />
-
-      {/* How It Works */}
-      <HowItWorks />
 
       {/* Features */}
       <section className="relative px-6 py-20 bg-[var(--secondary)] bg-noise overflow-hidden">

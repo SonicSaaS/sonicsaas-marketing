@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeSync } from "@/components/theme-sync";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { ExitIntent } from "@/components/exit-intent";
+
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -28,7 +28,6 @@ export default function RootLayout({
           <Nav />
           <main className="flex-1">{children}</main>
           <Footer />
-          <ExitIntent />
         </ThemeProvider>
       </body>
     </html>
