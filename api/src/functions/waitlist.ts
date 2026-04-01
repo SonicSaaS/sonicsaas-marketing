@@ -83,11 +83,13 @@ async function handler(
     };
   } catch (err) {
     context.error("Waitlist signup failed:", err);
+    const message = err instanceof Error ? err.message : String(err);
     return {
       status: 500,
       jsonBody: {
         success: false,
         error: "Server error. Please try again later.",
+        debug: message,
       },
     };
   }
