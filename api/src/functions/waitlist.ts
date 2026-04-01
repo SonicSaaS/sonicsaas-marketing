@@ -10,8 +10,9 @@ const TABLE_NAME = "WaitlistSignups";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 let tableClient: TableClient | undefined;
+let tableReady = false;
 
-function getTableClient(): TableClient {
+async function getTableClient(): Promise<TableClient> {
   if (!tableClient) {
     const connectionString =
       process.env.AZURE_STORAGE_CONNECTION_STRING ||
@@ -19,15 +20,16 @@ function getTableClient(): TableClient {
     if (!connectionString) {
       throw new Error("Missing storage connection string");
     }
-    const serviceClient =
-      TableServiceClient.fromConnectionString(connectionString);
-    serviceClient.createTable(TABLE_NAME).catch(() => {
-      // Table already exists — ignore 409 Conflict
-    });
     tableClient = TableClient.fromConnectionString(
       connectionString,
       TABLE_NAME
     );
+  }
+  if (!tableReady) {
+    await tableClient.createTable().catch(() => {
+      // Table already exists — ignore 409 Conflict
+    });
+    tableReady = true;
   }
   return tableClient;
 }
@@ -60,7 +62,7 @@ async function handler(
   }
 
   try {
-    const client = getTableClient();
+    const client = await getTableClient();
     const domain = email.split("@")[1];
     const rowKey = email.replace(/[\\/#?%]/g, "_");
 
@@ -83,13 +85,11 @@ async function handler(
     };
   } catch (err) {
     context.error("Waitlist signup failed:", err);
-    const message = err instanceof Error ? err.message : String(err);
     return {
       status: 500,
       jsonBody: {
         success: false,
         error: "Server error. Please try again later.",
-        debug: message,
       },
     };
   }
