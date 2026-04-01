@@ -45,9 +45,22 @@ async function handler(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
-  let body: { email?: string; source?: string };
+  interface WaitlistBody {
+    email?: string;
+    source?: string;
+    referrer?: string;
+    utm?: string;
+    timezone?: string;
+    locale?: string;
+    screen?: string;
+    userAgent?: string;
+    triedDemo?: boolean;
+    demoPages?: string[];
+  }
+
+  let body: WaitlistBody;
   try {
-    body = (await request.json()) as { email?: string; source?: string };
+    body = (await request.json()) as WaitlistBody;
   } catch {
     return {
       status: 400,
@@ -79,6 +92,14 @@ async function handler(
         rowKey: rowKey,
         email: email,
         source: source,
+        referrer: body.referrer || "",
+        utm: body.utm || "",
+        timezone: body.timezone || "",
+        locale: body.locale || "",
+        screen: body.screen || "",
+        userAgent: body.userAgent || "",
+        triedDemo: body.triedDemo ?? false,
+        demoPages: body.demoPages?.join(",") || "",
         signedUpAt: new Date().toISOString(),
       },
       "Merge"

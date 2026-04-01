@@ -1,12 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+function getClientContext() {
+  return {
+    referrer: document.referrer || "",
+    utm: window.location.search || "",
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
+    locale: navigator.language || "",
+    screen: `${window.screen.width}x${window.screen.height}`,
+    userAgent: navigator.userAgent || "",
+  };
+}
+
+const demoClicks = new Set<string>();
+
+export function trackDemoClick(page: string) {
+  demoClicks.add(page);
+}
 
 export function WaitlistForm({ source = "website" }: { source?: string }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      const link = (e.target as HTMLElement).closest("a[href*='/api/auth/guest']");
+      if (link) {
+        const href = link.getAttribute("href") || "";
+        const match = href.match(/callbackUrl=([^&]*)/);
+        if (match) trackDemoClick(decodeURIComponent(match[1]));
+      }
+    }
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -16,10 +46,17 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
     setLoading(true);
 
     try {
+      const context = getClientContext();
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source }),
+        body: JSON.stringify({
+          email,
+          source,
+          ...context,
+          triedDemo: demoClicks.size > 0,
+          demoPages: Array.from(demoClicks),
+        }),
       });
 
       const data = await res.json();
