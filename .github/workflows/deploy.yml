@@ -14,13 +14,24 @@ jobs:
     name: Build and Deploy
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install and build site
+        working-directory: site
+        env:
+          NEXT_PUBLIC_APP_URL: https://app.sonicsaas.com
+        run: |
+          npm install --force
+          npm run build
       - name: Deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: upload
-          app_location: /site
+          app_location: /site/out
+          api_location: /api
           output_location: ""
           skip_app_build: true
 
