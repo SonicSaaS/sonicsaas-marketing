@@ -48,6 +48,8 @@ async function handler(
   interface WaitlistBody {
     email?: string;
     source?: string;
+    company?: string;
+    firewallCount?: string;
     referrer?: string;
     utm?: string;
     timezone?: string;
@@ -85,27 +87,44 @@ async function handler(
     const client = await getTableClient();
     const domain = email.split("@")[1];
     const rowKey = email.replace(/[\\/#?%]/g, "_");
+    const now = new Date().toISOString();
 
-    await client.upsertEntity(
-      {
-        partitionKey: domain,
-        rowKey: rowKey,
-        email: email,
-        source: source,
-        referrer: body.referrer || "",
-        utm: body.utm || "",
-        timezone: body.timezone || "",
-        locale: body.locale || "",
-        screen: body.screen || "",
-        userAgent: body.userAgent || "",
-        triedDemo: body.triedDemo ?? false,
-        demoPages: body.demoPages?.join(",") || "",
-        signedUpAt: new Date().toISOString(),
-      },
-      "Merge"
-    );
+    // Check if this email already exists to preserve firstSignedUpAt
+    let isRepeat = false;
+    try {
+      await client.getEntity(domain, rowKey);
+      isRepeat = true;
+    } catch {
+      // Entity doesn't exist yet — first signup
+    }
 
-    context.log(`Waitlist signup: ${email} (source: ${source})`);
+    const entity: Record<string, unknown> & { partitionKey: string; rowKey: string } = {
+      partitionKey: domain,
+      rowKey: rowKey,
+      email: email,
+      source: source,
+      referrer: body.referrer || "",
+      utm: body.utm || "",
+      timezone: body.timezone || "",
+      locale: body.locale || "",
+      screen: body.screen || "",
+      userAgent: body.userAgent || "",
+      triedDemo: body.triedDemo ?? false,
+      demoPages: body.demoPages?.join(",") || "",
+      signedUpAt: now,
+    };
+
+    // Only set firstSignedUpAt on first signup (Merge won't overwrite it later)
+    if (!isRepeat) {
+      entity.firstSignedUpAt = now;
+    }
+
+    if (body.company) entity.company = body.company.trim();
+    if (body.firewallCount) entity.firewallCount = body.firewallCount;
+
+    await client.upsertEntity(entity, "Merge");
+
+    context.log(`Waitlist signup: ${email} (source: ${source}, repeat: ${isRepeat})`);
 
     return {
       status: 200,

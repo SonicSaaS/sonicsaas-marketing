@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function Terms() {
   return (
-    <LegalPage title="Terms of Service" lastUpdated="March 30, 2026">
+    <LegalPage title="Terms of Service" lastUpdated="April 1, 2026">
       <h2>Service Description</h2>
       <p>
         SonicSaaS provides a cloud-based platform for managing SonicWall

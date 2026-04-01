@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function Privacy() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="March 30, 2026">
+    <LegalPage title="Privacy Policy" lastUpdated="April 1, 2026">
       <h2>What We Collect</h2>
       <p>
         When you join our waitlist, we collect your email address. When you use

@@ -4,6 +4,7 @@ node_modules/
 .next/
 out/
 .playwright-mcp/
+*.tsbuildinfo
 
 # Azure Functions API
 api/node_modules/
