@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeSync } from "@/components/theme-sync";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="en" className={manrope.className} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeSync />
           <Nav />
           <main className="flex-1">{children}</main>
           <Footer />
