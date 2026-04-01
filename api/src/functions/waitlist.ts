@@ -26,9 +26,16 @@ async function getTableClient(): Promise<TableClient> {
     );
   }
   if (!tableReady) {
-    await tableClient.createTable().catch(() => {
-      // Table already exists — ignore 409 Conflict
-    });
+    try {
+      await tableClient.createTable();
+    } catch (e: unknown) {
+      const status = (e as { statusCode?: number }).statusCode;
+      if (status !== 409) {
+        throw new Error(
+          `createTable failed (status ${status}): ${e instanceof Error ? e.message : String(e)}`
+        );
+      }
+    }
     tableReady = true;
   }
   return tableClient;
