@@ -311,14 +311,12 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
           We&apos;re onboarding beta users in batches — expect an invite within
           a couple of weeks.
         </p>
-        {demoToken && (
-          <a
-            href={buildDemoUrl(demoToken)}
+        <a
+            href={demoToken ? buildDemoUrl(demoToken) : `${APP_URL}/api/auth/guest`}
             className="inline-flex items-center justify-center font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-5 py-2 rounded-md text-sm transition-colors mb-4"
           >
             Launch the Demo
           </a>
-        )}
         <div className="flex items-center justify-center gap-4 text-sm text-[var(--muted-foreground)]">
           <span>Share:</span>
           <a
