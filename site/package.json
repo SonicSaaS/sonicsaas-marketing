@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@rollup/rollup-win32-x64-msvc": "^4.60.1",
+    "@sentry/nextjs": "^10.47.0",
     "@tailwindcss/oxide-win32-x64-msvc": "^4.1.8",
     "lightningcss-win32-x64-msvc": "^1.32.0",
     "lucide-react": "^1.7.0",
