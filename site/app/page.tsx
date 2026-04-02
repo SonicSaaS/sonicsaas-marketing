@@ -96,7 +96,7 @@ export default function Home() {
             </a>
           </div>
           <p className="text-sm text-[var(--muted-foreground)]">
-            Free during beta &middot; No credit card required
+            Built for MSPs who manage SonicWall fleets
           </p>
         </div>
       </section>

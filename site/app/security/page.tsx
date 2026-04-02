@@ -26,7 +26,7 @@ export default function Security() {
       <ul>
         <li>Database-backed sessions (not JWT)</li>
         <li>TOTP-based multi-factor authentication</li>
-        <li>SSO via Microsoft Entra ID (Business tier and above)</li>
+        <li>SSO via Microsoft Entra ID</li>
         <li>Role-based access control with team scoping on every query</li>
       </ul>
 
@@ -42,7 +42,7 @@ export default function Security() {
       <p>
         Every mutation — device operations, policy changes, user actions — is
         recorded in an immutable audit log with timestamp, actor, and action
-        details. Audit logs are retained per your subscription tier.
+        details. Audit logs are retained for compliance purposes.
       </p>
 
       <h2>Compliance</h2>
