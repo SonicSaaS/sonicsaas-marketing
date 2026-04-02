@@ -21,11 +21,14 @@ export function Footer() {
             <a href="/acceptable-use" className="hover:text-[var(--foreground)] transition-colors">
               Acceptable Use
             </a>
+            <a href="https://docs.sonicsaas.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+              Docs
+            </a>
+            <a href="https://app.sonicsaas.com/api/v1/swagger" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+              API Docs
+            </a>
           </div>
         </div>
-        <p className="text-xs text-[var(--muted-foreground)]/60">
-          Egress IP: connect.sonicsaas.com
-        </p>
       </div>
     </footer>
   );

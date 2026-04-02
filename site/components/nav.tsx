@@ -14,6 +14,22 @@ export function Nav() {
       <div className="flex items-center gap-2">
         <ThemeToggle />
         <a
+          href="https://docs.sonicsaas.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+        >
+          Docs
+        </a>
+        <a
+          href="https://app.sonicsaas.com/api/v1/swagger"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+        >
+          API
+        </a>
+        <a
           href={APP_URL}
           className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
         >
