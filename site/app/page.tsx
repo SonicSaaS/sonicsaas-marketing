@@ -1,4 +1,6 @@
-import { WaitlistForm } from "@/components/waitlist-form";
+"use client";
+
+import { WaitlistForm, useDemoAccess, buildDemoUrl } from "@/components/waitlist-form";
 import {
   Shield,
   Server,
@@ -7,8 +9,6 @@ import {
   Building,
   FileText,
 } from "lucide-react";
-
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.sonicsaas.com";
 
 const features = [
   {
@@ -55,7 +55,17 @@ const features = [
   },
 ];
 
+const btnPrimary =
+  "inline-flex items-center justify-center font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-6 py-3 rounded-lg text-sm transition-colors w-full sm:w-auto";
+
 export default function Home() {
+  const { hasAccess, demoToken } = useDemoAccess();
+
+  function demoHref(callbackUrl?: string) {
+    if (hasAccess && demoToken) return buildDemoUrl(demoToken, callbackUrl);
+    return "#waitlist";
+  }
+
   return (
     <>
       {/* Hero */}
@@ -75,11 +85,8 @@ export default function Home() {
             call, and stop logging into firewalls one at a time.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
-            <a
-              href={`${APP_URL}/api/auth/guest`}
-              className="inline-flex items-center justify-center font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-6 py-3 rounded-lg text-sm transition-colors w-full sm:w-auto"
-            >
-              Try the Demo
+            <a href={demoHref()} className={btnPrimary}>
+              {hasAccess ? "Launch Demo" : "Get Demo Access"}
             </a>
             <a
               href="#waitlist"
@@ -101,7 +108,7 @@ export default function Home() {
             {features.map((feature, i) => (
               <a
                 key={feature.title}
-                href={`${APP_URL}/api/auth/guest?callbackUrl=${encodeURIComponent(feature.demoPath)}`}
+                href={demoHref(feature.demoPath)}
                 className="block animate-fade-up bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 hover:-translate-y-0.5 hover:shadow-md transition-all group"
                 style={{ animationDelay: `${i * 80}ms` }}
               >
@@ -115,7 +122,7 @@ export default function Home() {
                   {feature.description}
                 </p>
                 <span className="inline-block mt-3 text-xs font-semibold text-[var(--brand)] opacity-0 group-hover:opacity-100 transition-opacity">
-                  Try in demo &rarr;
+                  {hasAccess ? "Try in demo" : "Join waitlist to try"} &rarr;
                 </span>
               </a>
             ))}
@@ -131,13 +138,15 @@ export default function Home() {
             See it for yourself
           </h2>
           <p className="text-[var(--primary-foreground)]/70 mb-8">
-            A full demo with sample data. No signup, no sales call.
+            {hasAccess
+              ? "Your demo is ready. Jump in and explore."
+              : "Fill out the form below to unlock a full demo with sample data."}
           </p>
           <a
-            href={`${APP_URL}/api/auth/guest`}
+            href={demoHref()}
             className="inline-flex items-center justify-center font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-8 py-3 rounded-lg text-sm transition-colors"
           >
-            Launch Demo
+            {hasAccess ? "Launch Demo" : "Get Demo Access"}
           </a>
         </div>
       </section>
@@ -148,18 +157,20 @@ export default function Home() {
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             Ready to stop managing firewalls one at a time?
           </h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-8">
-            <a
-              href={`${APP_URL}/api/auth/guest`}
-              className="inline-flex items-center justify-center font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-6 py-3 rounded-lg text-sm transition-colors w-full sm:w-auto"
-            >
-              Try the Demo
-            </a>
-          </div>
-          <p className="text-sm text-[var(--muted-foreground)] mb-6">
-            Or join the waitlist for launch updates:
-          </p>
-          <WaitlistForm source="bottom-cta" />
+          {hasAccess ? (
+            <div className="mb-8">
+              <a href={demoHref()} className={btnPrimary}>
+                Launch Demo
+              </a>
+            </div>
+          ) : (
+            <>
+              <p className="text-sm text-[var(--muted-foreground)] mb-6">
+                Fill out the form to unlock demo access and join the waitlist:
+              </p>
+              <WaitlistForm source="bottom-cta" />
+            </>
+          )}
         </div>
       </section>
     </>
