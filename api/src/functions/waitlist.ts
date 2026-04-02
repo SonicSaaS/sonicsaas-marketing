@@ -6,6 +6,7 @@ import {
 } from "@azure/functions";
 import { TableClient } from "@azure/data-tables";
 import { createHmac } from "crypto";
+import { checkRateLimit, getClientIp } from "../lib/rate-limit";
 
 const TABLE_NAME = "WaitlistSignups";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -98,6 +99,17 @@ async function handler(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
+  // Rate limit: 5 requests per 15 minutes per IP
+  const ip = getClientIp(request);
+  const rateCheck = await checkRateLimit('waitlist', ip, 5, 15 * 60 * 1000);
+  if (!rateCheck.allowed) {
+    return {
+      status: 429,
+      headers: { 'Retry-After': String(Math.ceil(rateCheck.retryAfterMs / 1000)) },
+      jsonBody: { success: false, error: 'Too many requests. Please try again later.' },
+    };
+  }
+
   interface WaitlistBody {
     email?: string;
     source?: string;

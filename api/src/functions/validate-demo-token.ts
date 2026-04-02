@@ -5,11 +5,23 @@ import {
   InvocationContext,
 } from "@azure/functions";
 import { createHmac } from "crypto";
+import { checkRateLimit, getClientIp } from "../lib/rate-limit";
 
 async function handler(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
+  // Rate limit: 20 requests per 15 minutes per IP
+  const ip = getClientIp(request);
+  const rateCheck = await checkRateLimit('validate-demo-token', ip, 20, 15 * 60 * 1000);
+  if (!rateCheck.allowed) {
+    return {
+      status: 429,
+      headers: { 'Retry-After': String(Math.ceil(rateCheck.retryAfterMs / 1000)) },
+      jsonBody: { valid: false, error: 'Too many requests. Please try again later.' },
+    };
+  }
+
   const token = request.query.get("token");
   if (!token) {
     return {
