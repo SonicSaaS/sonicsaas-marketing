@@ -11,8 +11,8 @@ export default function Terms() {
       <p>
         SonicSaaS provides a cloud-based platform for managing SonicWall
         firewall devices. The service includes device monitoring, policy
-        management, configuration backup, and fleet operations for managed
-        service providers (MSPs).
+        management, configuration backup, and fleet operations for IT teams
+        and managed service providers.
       </p>
 
       <h2>Account Responsibilities</h2>
