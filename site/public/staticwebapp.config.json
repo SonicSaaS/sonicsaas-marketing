@@ -5,6 +5,11 @@
   },
   "routes": [
     {
+      "route": "/sign-in",
+      "redirect": "https://app.sonicsaas.com/sign-in",
+      "statusCode": 302
+    },
+    {
       "route": "/api/*",
       "allowedRoles": ["anonymous"]
     }
