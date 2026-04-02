@@ -4,10 +4,16 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions";
-import { TableClient, TableServiceClient } from "@azure/data-tables";
+import { TableClient } from "@azure/data-tables";
+import { createHmac } from "crypto";
 
 const TABLE_NAME = "WaitlistSignups";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const TURNSTILE_VERIFY_URL =
+  "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+// Token expires after 72 hours
+const TOKEN_TTL_SECONDS = 72 * 60 * 60;
 
 let tableClient: TableClient | undefined;
 let tableReady = false;
@@ -41,6 +47,53 @@ async function getTableClient(): Promise<TableClient> {
   return tableClient;
 }
 
+// ---------------------------------------------------------------------------
+// Turnstile verification
+// ---------------------------------------------------------------------------
+
+async function verifyTurnstile(
+  token: string,
+  context: InvocationContext
+): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    context.warn("TURNSTILE_SECRET_KEY not set — skipping CAPTCHA verification");
+    return true;
+  }
+  try {
+    const res = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret, response: token }),
+    });
+    const data = (await res.json()) as { success: boolean };
+    return data.success === true;
+  } catch (err) {
+    context.error("Turnstile verification failed:", err);
+    return false;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Demo token generation (HMAC-SHA256)
+// ---------------------------------------------------------------------------
+
+function generateDemoToken(email: string): string | null {
+  const secret = process.env.DEMO_TOKEN_SECRET;
+  if (!secret) return null;
+
+  const expiry = Math.floor(Date.now() / 1000) + TOKEN_TTL_SECONDS;
+  const payload = `${Buffer.from(email).toString("base64url")}.${expiry}`;
+  const signature = createHmac("sha256", secret)
+    .update(payload)
+    .digest("base64url");
+  return `${payload}.${signature}`;
+}
+
+// ---------------------------------------------------------------------------
+// Handler
+// ---------------------------------------------------------------------------
+
 async function handler(
   request: HttpRequest,
   context: InvocationContext
@@ -50,6 +103,13 @@ async function handler(
     source?: string;
     company?: string;
     firewallCount?: string;
+    role?: string;
+    clientCount?: string;
+    currentApproach?: string;
+    biggestPainPoint?: string;
+    heardAbout?: string;
+    trickAttempts?: number;
+    turnstileToken?: string;
     referrer?: string;
     utm?: string;
     timezone?: string;
@@ -83,6 +143,20 @@ async function handler(
     };
   }
 
+  // Verify Turnstile CAPTCHA
+  if (body.turnstileToken) {
+    const valid = await verifyTurnstile(body.turnstileToken, context);
+    if (!valid) {
+      return {
+        status: 400,
+        jsonBody: {
+          success: false,
+          error: "CAPTCHA verification failed. Please try again.",
+        },
+      };
+    }
+  }
+
   try {
     const client = await getTableClient();
     const domain = email.split("@")[1];
@@ -98,7 +172,10 @@ async function handler(
       // Entity doesn't exist yet — first signup
     }
 
-    const entity: Record<string, unknown> & { partitionKey: string; rowKey: string } = {
+    const entity: Record<string, unknown> & {
+      partitionKey: string;
+      rowKey: string;
+    } = {
       partitionKey: domain,
       rowKey: rowKey,
       email: email,
@@ -119,16 +196,31 @@ async function handler(
       entity.firstSignedUpAt = now;
     }
 
+    // Existing optional fields
     if (body.company) entity.company = body.company.trim();
     if (body.firewallCount) entity.firewallCount = body.firewallCount;
 
+    // New qualification fields
+    if (body.role) entity.role = body.role;
+    if (body.clientCount) entity.clientCount = body.clientCount;
+    if (body.currentApproach) entity.currentApproach = body.currentApproach;
+    if (body.biggestPainPoint) entity.biggestPainPoint = body.biggestPainPoint;
+    if (body.heardAbout) entity.heardAbout = body.heardAbout;
+    if (body.trickAttempts !== undefined)
+      entity.trickAttempts = body.trickAttempts;
+
     await client.upsertEntity(entity, "Merge");
 
-    context.log(`Waitlist signup: ${email} (source: ${source}, repeat: ${isRepeat})`);
+    context.log(
+      `Waitlist signup: ${email} (source: ${source}, repeat: ${isRepeat})`
+    );
+
+    // Generate demo access token
+    const demoToken = generateDemoToken(email);
 
     return {
       status: 200,
-      jsonBody: { success: true },
+      jsonBody: { success: true, ...(demoToken ? { demoToken } : {}) },
     };
   } catch (err) {
     context.error("Waitlist signup failed:", err);
