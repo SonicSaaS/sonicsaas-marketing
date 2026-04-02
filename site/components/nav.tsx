@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Shield } from "lucide-react";
+import { Shield, BookOpen, LogIn } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.sonicsaas.com";
@@ -11,36 +11,22 @@ export function Nav() {
         <Shield className="h-6 w-6 text-[var(--brand)]" />
         <span className="ml-2 text-xl font-semibold">SonicSaaS</span>
       </Link>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1">
         <ThemeToggle />
         <a
           href="https://docs.sonicsaas.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+          className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)] rounded-md px-3 py-1.5 transition-colors"
         >
+          <BookOpen className="h-4 w-4" />
           Docs
         </a>
         <a
-          href="https://app.sonicsaas.com/api/v1/swagger"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
-        >
-          API
-        </a>
-        <a
-          href="https://status.sonicsaas.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
-        >
-          Status
-        </a>
-        <a
           href={APP_URL}
-          className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+          className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)] rounded-md px-3 py-1.5 transition-colors"
         >
+          <LogIn className="h-4 w-4" />
           Sign In
         </a>
         <a
