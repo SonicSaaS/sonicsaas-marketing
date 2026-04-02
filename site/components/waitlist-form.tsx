@@ -83,7 +83,7 @@ export function trackDemoClick(page: string) {
 // Form constants
 // ---------------------------------------------------------------------------
 
-const FIREWALL_RANGES = ["1–10", "11–50", "51–200", "200+"];
+const FIREWALL_RANGES = ["1-10", "11-50", "51-200", "200+"];
 
 const ROLES = [
   "IT Manager",
@@ -93,7 +93,7 @@ const ROLES = [
   "Other",
 ];
 
-const CLIENT_COUNTS = ["1–5", "6–20", "21–50", "50+"];
+const CLIENT_COUNTS = ["1-5", "6-20", "21-50", "50+"];
 
 const CURRENT_APPROACHES = [
   "Manual login to each firewall",
@@ -321,7 +321,7 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
         <div className="flex items-center justify-center gap-4 text-sm text-[var(--muted-foreground)]">
           <span>Share:</span>
           <a
-            href="https://twitter.com/intent/tweet?text=Just%20signed%20up%20for%20SonicSaaS%20%E2%80%94%20a%20modern%20fleet%20management%20tool%20for%20SonicWall%20firewalls.%20Looks%20promising%20for%20MSPs!%20https%3A%2F%2Fsonicsaas.com"
+            href="https://twitter.com/intent/tweet?text=Just%20signed%20up%20for%20SonicSaaS%20%E2%80%94%20a%20modern%20fleet%20management%20tool%20for%20SonicWall%20firewalls.%20Looks%20promising%20for%20SonicWall%20admins!%20https%3A%2F%2Fsonicsaas.com"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[var(--foreground)] transition-colors underline"
@@ -348,7 +348,7 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
         <input
           type="email"
           required
-          placeholder="you@msp.com"
+          placeholder="you@company.com"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
