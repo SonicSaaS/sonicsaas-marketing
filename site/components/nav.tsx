@@ -30,6 +30,14 @@ export function Nav() {
           API
         </a>
         <a
+          href="https://status.sonicsaas.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
+        >
+          Status
+        </a>
+        <a
           href={APP_URL}
           className="text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
         >

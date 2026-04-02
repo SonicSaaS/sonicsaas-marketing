@@ -130,27 +130,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Demo Callout */}
-      <section className="relative px-6 py-20 bg-[var(--primary)] text-[var(--primary-foreground)] overflow-hidden">
-        <div className="absolute inset-0 bg-glow" />
-        <div className="relative max-w-2xl mx-auto text-center animate-fade-up">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-            See it for yourself
-          </h2>
-          <p className="text-[var(--primary-foreground)]/70 mb-8">
-            {hasAccess
-              ? "Your demo is ready. Jump in and explore."
-              : "Fill out the form below to unlock a full demo with sample data."}
-          </p>
-          <a
-            href={demoHref()}
-            className="inline-flex items-center justify-center font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-8 py-3 rounded-lg text-sm transition-colors"
-          >
-            {hasAccess ? "Launch Demo" : "Get Demo Access"}
-          </a>
-        </div>
-      </section>
-
       {/* Bottom CTA */}
       <section id="waitlist" className="text-center px-6 pt-20 pb-40 scroll-mt-32">
         <div className="max-w-2xl mx-auto animate-fade-up">

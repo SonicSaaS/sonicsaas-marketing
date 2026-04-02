@@ -36,8 +36,9 @@ function getSnapshot() {
   return accessSnapshot;
 }
 
+const SERVER_SNAPSHOT: DemoAccess = { hasAccess: false, demoToken: null, email: null };
 function getServerSnapshot(): DemoAccess {
-  return { hasAccess: false, demoToken: null, email: null };
+  return SERVER_SNAPSHOT;
 }
 
 function grantAccess(email: string, demoToken: string) {

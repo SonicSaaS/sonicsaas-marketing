@@ -27,6 +27,9 @@ export function Footer() {
             <a href="https://app.sonicsaas.com/api/v1/swagger" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
               API Docs
             </a>
+            <a href="https://status.sonicsaas.com" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--foreground)] transition-colors">
+              Status
+            </a>
           </div>
         </div>
       </div>
