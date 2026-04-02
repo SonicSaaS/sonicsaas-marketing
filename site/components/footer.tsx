@@ -24,7 +24,7 @@ export function Footer() {
           </div>
         </div>
         <p className="text-xs text-[var(--muted-foreground)]/60">
-          Egress IP: connect.sonicsaas.com (20.29.73.179)
+          Egress IP: connect.sonicsaas.com
         </p>
       </div>
     </footer>

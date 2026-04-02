@@ -8,21 +8,12 @@ Public marketing site for [sonicsaas.com](https://sonicsaas.com). Static Next.js
 
 **This repo is only the marketing/landing site.** It has no backend, no database, no auth — just static pages. Content changes here, product changes elsewhere.
 
-## SonicSaaS Repos
+## Boundaries
 
-| Repo | Responsibility |
-|------|---------------|
-| **sonicsaas-marketing** (this) | Public marketing site, landing pages, legal/policy pages, waitlist form |
-| **sonicsaas-app** | Core product — SonicWall fleet management app (Next.js 16, Postgres, Stripe, Auth) |
-| **sonicsaas-dev** | Deployment infra, CI/CD pipelines, Docker, security scanning, git hooks |
-| **sonicsaas-docs** | End-user documentation portal (Nextra) |
-| **sonicsaas-business** | Business strategy, pricing, GTM planning, decision records |
-
-**Boundary rules:**
-- Marketing site links to the app via `NEXT_PUBLIC_APP_URL` — it never imports app code
-- Waitlist `/api/waitlist` is an Azure Function in the `api/` folder of this repo (deployed as SWA managed function)
-- Brand assets and design tokens (colors, fonts) are defined here in `globals.css` — the app has its own design system
-- Business strategy docs live in `sonicsaas-business/docs/`, not here
+- This is a standalone marketing site — it never imports code from other repos
+- Links to the app via `NEXT_PUBLIC_APP_URL`
+- Waitlist `/api/waitlist` is an Azure Function in the `api/` folder (deployed as SWA managed function)
+- Brand assets and design tokens (colors, fonts) are defined here in `globals.css`
 
 ## Commands
 
@@ -56,3 +47,16 @@ npm start        # Run Azure Functions host locally
 ## Deployment
 
 Push to `main` triggers `.github/workflows/deploy.yml` which deploys to Azure SWA. PRs get preview deployments. Requires `AZURE_STATIC_WEB_APPS_API_TOKEN` secret.
+
+## Security Notice
+
+**This repo is PUBLIC.** Everything committed here is visible to anyone on the internet, including git history. Do not add:
+
+- References to private repos, internal infrastructure, or architecture details of other SonicSaaS repos
+- IP addresses, internal hostnames, or server details that could bypass CDN/WAF protection
+- Screenshots or images from the product (may contain client data, device names, or internal IPs)
+- Cross-repo tables mapping the full SonicSaaS org structure or tech stack details
+- Credentials, API keys, tokens, or connection strings (even as examples with real values)
+- Client names, organization names, or any PII
+
+Keep this CLAUDE.md scoped to this repo only. Internal architecture context belongs in private repos.
