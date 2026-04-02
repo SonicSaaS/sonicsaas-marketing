@@ -1,13 +1,14 @@
 /*
- * SonicSaaS Master Palette
- * ─────────────────────────
- * Single source of truth for brand + neutral colors across all SonicSaaS sites:
- *   - sonicsaas-app   (app.sonicsaas.com)
- *   - sonicsaas        (sonicsaas.com — marketing)
- *   - sonicsaas-docs  (docs.sonicsaas.com)
+ * SonicSaaS Master Palette — REFERENCE ONLY
+ * ──────────────────────────────────────────
+ * Canonical source of truth for brand + neutral colors across all SonicSaaS sites:
+ *   - sonicsaas-app   (app.sonicsaas.com)   → app/globals.css
+ *   - sonicsaas        (sonicsaas.com)       → app/globals.css
+ *   - sonicsaas-docs  (docs.sonicsaas.com)  → app/theme.css
  *
- * Each site imports this file, then adds site-specific tokens on top (sidebar,
- * chart colors, etc.).  Only edit THIS file when changing brand or neutral colours.
+ * DO NOT @import this file in builds — Tailwind v4 / Lightning CSS strips
+ * external @import during compilation. Each site inlines these variables in
+ * its own CSS. Update THIS file first, then sync to the three sites above.
  *
  * Colour model: HSL — easy to reason about hue/sat/lightness shifts.
  * Brand hue: 24 (orange/saffron).
@@ -40,6 +41,7 @@
   --brand: hsl(24 94% 50%);
   --brand-foreground: hsl(0 0% 100%);
   --brand-muted: hsl(24 80% 95%);
+  --brand-hover: hsl(24 94% 42%);
 
   /* Shared geometry */
   --radius: 0.6rem;
@@ -72,4 +74,5 @@
   --brand: hsl(24 90% 55%);
   --brand-foreground: hsl(0 0% 100%);
   --brand-muted: hsl(24 60% 15%);
+  --brand-hover: hsl(24 94% 58%);
 }

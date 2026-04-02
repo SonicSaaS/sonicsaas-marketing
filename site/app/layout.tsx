@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={manrope.className} suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]">
+      <body className="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)]" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ThemeSync />
           <Nav />

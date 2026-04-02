@@ -6,6 +6,8 @@ export async function register() {
     tracesSampleRate: 0.05,
     environment: process.env.NEXT_PUBLIC_SENTRY_ENVIRONMENT || process.env.NODE_ENV,
   });
+
+  Sentry.captureMessage('Marketing site server initialized', 'info');
 }
 
 // Required by Sentry v10 for capturing server component errors

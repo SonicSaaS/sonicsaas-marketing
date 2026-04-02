@@ -147,7 +147,7 @@ a {
   height: 400px;
   background: radial-gradient(
     ellipse,
-    hsl(24 94% 50% / 0.12) 0%,
+    color-mix(in srgb, var(--brand) 12%, transparent) 0%,
     transparent 70%
   );
   pointer-events: none;
