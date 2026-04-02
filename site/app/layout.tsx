@@ -11,7 +11,7 @@ import { Footer } from "@/components/footer";
 const manrope = Manrope({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SonicSaaS — Modern Firewall Management for MSPs",
+  title: "SonicSaaS — Modern SonicWall Fleet Management",
   description:
     "Manage every SonicWall firewall in one place. See fleet health, spot problems, and stop logging into firewalls one at a time.",
 };

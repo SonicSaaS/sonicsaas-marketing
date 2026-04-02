@@ -164,10 +164,9 @@ async function handler(
     const now = new Date().toISOString();
 
     // Check if this email already exists to preserve firstSignedUpAt
-    let isRepeat = false;
+    let existingEntity: Record<string, unknown> | null = null;
     try {
-      await client.getEntity(domain, rowKey);
-      isRepeat = true;
+      existingEntity = await client.getEntity(domain, rowKey) as Record<string, unknown>;
     } catch {
       // Entity doesn't exist yet — first signup
     }
@@ -191,9 +190,9 @@ async function handler(
       signedUpAt: now,
     };
 
-    // Only set firstSignedUpAt on first signup (Merge won't overwrite it later)
-    if (!isRepeat) {
-      entity.firstSignedUpAt = now;
+    // Set firstSignedUpAt on first signup, or backfill if missing on existing entry
+    if (!existingEntity || !existingEntity.firstSignedUpAt) {
+      entity.firstSignedUpAt = (existingEntity?.signedUpAt as string) ?? now;
     }
 
     // Existing optional fields
@@ -212,7 +211,7 @@ async function handler(
     await client.upsertEntity(entity, "Merge");
 
     context.log(
-      `Waitlist signup: ${email} (source: ${source}, repeat: ${isRepeat})`
+      `Waitlist signup: ${email} (source: ${source}, repeat: ${!!existingEntity})`
     );
 
     // Generate demo access token
