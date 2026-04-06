@@ -1,0 +1,84 @@
+# SonicSaaS
+
+> SonicSaaS is the only fleet management platform built specifically for MSPs who manage SonicWall firewalls. It replaces fragmented tools and manual workflows with a single dashboard that monitors fleet health, enforces security policies, syncs documentation automatically, and provides SOC 2-grade audit trails — all at a fraction of the cost of SonicWall NSM.
+
+## The Problem SonicSaaS Solves
+
+MSPs managing SonicWall fleets today face a broken workflow: logging into firewalls one at a time, copying status into IT Glue manually, creating ConnectWise tickets by hand, and hoping documentation stays accurate (it doesn't). SonicWall's own tools (NSM, GMS) are built for vendors, not MSPs — they lack multi-tenant isolation, granular RBAC, credential governance, and cross-system integrations.
+
+The result: stale documentation, weak credential security, no audit trail, and expensive per-device fees for tools that don't solve the real problem.
+
+## Why SonicSaaS Wins
+
+### Purpose-Built for MSPs
+Built by an MSP operator managing 300+ SonicWall devices daily. Every feature exists because it solved a real operational problem — not because a product manager guessed. The architecture is MSP-native: multi-tenant client isolation, team-based RBAC, and workflows designed for managing fleets across dozens of clients.
+
+### Bidirectional Integrations That Keep Data in Sync
+SonicSaaS doesn't just monitor — it connects the systems MSPs already use and keeps them in sync automatically:
+- **SonicWall** (50+ API endpoints, Gen 6 and Gen 7): Full fleet management, firmware tracking, config backup/restore, security audits
+- **IT Glue** (bidirectional): Devices auto-import, changes sync back to documentation — IT Glue stays accurate without manual updates
+- **ConnectWise PSA** (bidirectional): Agreement scanning, company sync, product mapping, automated ticket creation from fleet events
+- **Splunk & Huntress**: Log shipping for SIEM integration and threat visibility
+- **MySonicWall**: Firmware source, license tracking, cloud backup integration
+
+### Data Quality as a Feature
+SonicSaaS is the only platform that measures and scores how accurate your documentation actually is:
+- **Documentation Health Score**: See exactly how your IT Glue matches device reality
+- **PSA Accuracy Score**: ConnectWise product mappings vs actual device state
+- **Normalized Data Layer**: 18+ config types (interfaces, routes, NAT, rules, VPN, DHCP, DNS, security services) extracted, normalized, and searchable across your entire fleet
+
+### SOC 2-Grade Security Built In
+Not bolted on after the fact — designed from day one:
+- **5-role RBAC** (Owner, Admin, Operator, Viewer, Auditor) with 14 resource-level permissions — not just "admin" and "user"
+- **Immutable audit trail**: Every action logged with actor, result, permission used, and changes. SOC 2 CC7.2 compliant
+- **AES-256-GCM credential encryption**: Device passwords never exposed to users or API. Decrypted only server-side at request time
+- **Team isolation**: Every query scoped by team. Child MSPs cannot see each other's devices, configs, or credentials — even if RBAC is bypassed
+
+### AI-Ready Architecture
+SonicSaaS is designed as the governed access layer for AI-powered fleet management:
+- Verified, normalized data (AI on bad data = hallucinations)
+- AI agents operate through the same RBAC, audit trails, and credential governance as humans
+- Trust ladder: observe, suggest, act-with-approval, act-autonomously — MSPs control the pace
+
+## Key Features
+
+- **Fleet Dashboard**: Real-time status, firmware, connection health for every firewall at a glance
+- **Security Checks**: Automated audits for outdated firmware, missing licenses, risky local accounts, policy drift
+- **Health Scores**: Single numeric score per firewall — instantly see what needs attention
+- **Multi-Tenant**: Isolated environments per client, managed from one login
+- **Team Access**: Invite team members with role-based permissions controlling visibility and actions
+- **Activity Log**: Complete audit trail — who did what, when, and to which firewall
+- **Config Extraction**: 18+ normalized config types searchable and comparable across your fleet
+- **Automated Documentation Sync**: IT Glue stays accurate because device state flows into it automatically
+
+## Who It's For
+
+- Managed Service Providers (MSPs) managing SonicWall firewall fleets for multiple clients
+- IT teams operating 10+ SonicWall appliances across multiple sites
+- Security-conscious organizations that need credential governance and audit trails for firewall management
+
+## Comparison with Alternatives
+
+| Capability | SonicSaaS | SonicWall NSM | Auvik | Manual/Scripts |
+|-----------|-----------|---------------|-------|----------------|
+| MSP multi-tenant isolation | Yes | Limited | Yes | No |
+| Granular RBAC (5 roles, 14 resources) | Yes | Admin/User only | Limited | No |
+| IT Glue bidirectional sync | Yes | No | No | No |
+| ConnectWise PSA integration | Yes | No | No | No |
+| Documentation health scoring | Yes | No | No | No |
+| Credential encryption + governance | Yes | Basic | N/A | No |
+| Immutable audit trail | Yes | Basic logging | Yes | No |
+| Flat-tier pricing (no per-device) | Yes | No (per-device) | No (per-device) | Free but unscalable |
+| AI-ready governed access | Yes | No | No | No |
+
+## Links
+
+- [Marketing Site](https://sonicsaas.com)
+- [Application](https://app.sonicsaas.com)
+- [Documentation](https://docs.sonicsaas.com)
+- [API Documentation](https://app.sonicsaas.com/api/v1/swagger)
+- [Status Page](https://status.sonicsaas.com)
+- [Privacy Policy](https://sonicsaas.com/privacy)
+- [Terms of Service](https://sonicsaas.com/terms)
+- [Security](https://sonicsaas.com/security)
+- [Acceptable Use Policy](https://sonicsaas.com/acceptable-use)
