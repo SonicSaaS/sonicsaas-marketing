@@ -17,21 +17,23 @@ export function Nav() {
           href="https://docs.sonicsaas.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)] rounded-md px-3 py-1.5 transition-colors"
+          aria-label="Documentation"
+          className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)] rounded-md px-2 sm:px-3 py-1.5 transition-colors"
         >
           <BookOpen className="h-4 w-4" />
-          Docs
+          <span className="hidden sm:inline">Docs</span>
         </a>
         <a
           href={APP_URL}
-          className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)] rounded-md px-3 py-1.5 transition-colors"
+          aria-label="Sign in"
+          className="flex items-center gap-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--secondary)] rounded-md px-2 sm:px-3 py-1.5 transition-colors"
         >
           <LogIn className="h-4 w-4" />
-          Sign In
+          <span className="hidden sm:inline">Sign In</span>
         </a>
         <a
           href="#waitlist"
-          className="text-sm font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-4 py-2 rounded-md transition-colors"
+          className="hidden sm:inline-flex text-sm font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-4 py-2 rounded-md transition-colors whitespace-nowrap"
         >
           Request Access
         </a>

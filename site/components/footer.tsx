@@ -8,7 +8,7 @@ export function Footer() {
           <p className="text-sm text-[var(--muted-foreground)]">
             &copy; {year} SonicSaaS. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-[var(--muted-foreground)]">
+          <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-[var(--muted-foreground)]">
             <a href="/privacy" className="hover:text-[var(--foreground)] transition-colors">
               Privacy
             </a>

@@ -344,10 +344,11 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-center gap-3 max-w-md mx-auto">
       {/* Tier 1: Email + submit */}
-      <div className="flex gap-2 w-full">
+      <div className="flex flex-col sm:flex-row gap-2 w-full">
         <input
           type="email"
           required
+          aria-label="Email address"
           placeholder="you@company.com"
           value={email}
           onChange={(e) => {
@@ -368,9 +369,10 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
 
       {/* Tier 2: Company + firewall count */}
       {showTier2 && (
-        <div className="flex gap-2 w-full animate-fade-in">
+        <div className="flex flex-col sm:flex-row gap-2 w-full animate-fade-in">
           <input
             type="text"
+            aria-label="Company name"
             placeholder="Company name (optional)"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
@@ -381,6 +383,7 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
             value={firewallCount}
             onChange={(e) => setFirewallCount(e.target.value)}
             disabled={loading}
+            aria-label="Number of firewalls managed"
             className="bg-[var(--background)] border border-[var(--input)] rounded-md px-3 py-2 text-sm text-[var(--foreground)] focus:outline-none focus:border-[var(--brand)] transition-colors disabled:opacity-50"
           >
             <option value="">Firewalls?</option>
@@ -397,23 +400,23 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
       {showTier3 && (
         <div className="w-full space-y-2 animate-fade-in">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <select value={role} onChange={(e) => setRole(e.target.value)} disabled={loading} className={selectClass}>
+            <select value={role} onChange={(e) => setRole(e.target.value)} disabled={loading} aria-label="Your role" className={selectClass}>
               <option value="">Your role</option>
               {ROLES.map((r) => <option key={r} value={r}>{r}</option>)}
             </select>
-            <select value={clientCount} onChange={(e) => setClientCount(e.target.value)} disabled={loading} className={selectClass}>
+            <select value={clientCount} onChange={(e) => setClientCount(e.target.value)} disabled={loading} aria-label="Clients managed" className={selectClass}>
               <option value="">Clients managed</option>
               {CLIENT_COUNTS.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
-            <select value={currentApproach} onChange={(e) => setCurrentApproach(e.target.value)} disabled={loading} className={selectClass}>
+            <select value={currentApproach} onChange={(e) => setCurrentApproach(e.target.value)} disabled={loading} aria-label="How do you manage firewalls?" className={selectClass}>
               <option value="">How do you manage firewalls?</option>
               {CURRENT_APPROACHES.map((a) => <option key={a} value={a}>{a}</option>)}
             </select>
-            <select value={biggestPainPoint} onChange={(e) => setBiggestPainPoint(e.target.value)} disabled={loading} className={selectClass}>
+            <select value={biggestPainPoint} onChange={(e) => setBiggestPainPoint(e.target.value)} disabled={loading} aria-label="Biggest pain point" className={selectClass}>
               <option value="">Biggest pain point</option>
               {PAIN_POINTS.map((p) => <option key={p} value={p}>{p}</option>)}
             </select>
-            <select value={heardAbout} onChange={(e) => setHeardAbout(e.target.value)} disabled={loading} className={selectClass}>
+            <select value={heardAbout} onChange={(e) => setHeardAbout(e.target.value)} disabled={loading} aria-label="How did you hear about us?" className={selectClass}>
               <option value="">How&apos;d you hear about us?</option>
               {REFERRAL_SOURCES.map((s) => <option key={s} value={s}>{s}</option>)}
             </select>
@@ -423,6 +426,7 @@ export function WaitlistForm({ source = "website" }: { source?: string }) {
                 value={trickAnswer}
                 onChange={(e) => { setTrickAnswer(e.target.value); setTrickError(""); }}
                 disabled={loading}
+                aria-label="What color is an orange?"
                 className={`${selectClass}${trickError ? " border-red-500" : ""}`}
               >
                 <option value="">What color is an orange?</option>

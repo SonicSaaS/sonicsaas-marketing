@@ -84,15 +84,9 @@ export default function Home() {
             See the health of your entire fleet, spot problems before clients
             call, and stop logging into firewalls one at a time.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+          <div className="flex justify-center mb-4">
             <a href={demoHref()} className={btnPrimary}>
               {hasAccess ? "Launch Demo" : "Get Demo Access"}
-            </a>
-            <a
-              href="#waitlist"
-              className="inline-flex items-center justify-center font-semibold border border-[var(--border)] hover:bg-[var(--secondary)] px-6 py-3 rounded-lg text-sm transition-colors w-full sm:w-auto"
-            >
-              Join the Waitlist
             </a>
           </div>
           <p className="text-sm text-[var(--muted-foreground)]">
