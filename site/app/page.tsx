@@ -8,6 +8,10 @@ import {
   CheckCircle,
   Building,
   FileText,
+  RefreshCw,
+  Ticket,
+  Lock,
+  Activity,
 } from "lucide-react";
 
 const features = [
@@ -55,6 +59,33 @@ const features = [
   },
 ];
 
+const differentiators = [
+  {
+    icon: RefreshCw,
+    title: "Bidirectional IT Glue Sync",
+    description:
+      "Devices auto-import from IT Glue. Changes you make in SonicSaaS sync back. Documentation stays accurate without anyone updating it manually.",
+  },
+  {
+    icon: Ticket,
+    title: "ConnectWise PSA Integration",
+    description:
+      "Agreement scanning, company sync, product mapping, automated tickets from fleet events — closes the loop between monitoring and billing.",
+  },
+  {
+    icon: Lock,
+    title: "SOC 2-Grade Security",
+    description:
+      "AES-256-GCM credential encryption — passwords never exposed to clients. 5-role RBAC with team isolation and an immutable audit trail.",
+  },
+  {
+    icon: Activity,
+    title: "Documentation Health Score",
+    description:
+      "One number that tells you exactly how well your IT Glue matches device reality. Catches drift before clients notice.",
+  },
+];
+
 const btnPrimary =
   "inline-flex items-center justify-center font-semibold bg-[var(--brand)] hover:bg-[var(--brand-hover)] text-[var(--brand-foreground)] px-6 py-3 rounded-lg text-sm transition-colors w-full sm:w-auto";
 
@@ -71,6 +102,7 @@ export default function Home() {
       {/* Hero */}
       <section className="relative text-center px-6 py-24 sm:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-dot-grid opacity-40" />
+        <div className="absolute inset-x-0 bottom-0 top-1/3 bg-glow" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--background)]" />
         <div className="relative max-w-3xl mx-auto animate-fade-up">
           <span className="inline-block text-xs font-semibold tracking-wide uppercase bg-[var(--brand-muted)] text-[var(--brand)] px-3 py-1 rounded-full mb-6">
@@ -95,6 +127,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Differentiators */}
+      <section className="relative px-6 py-20 overflow-hidden">
+        <div className="absolute inset-x-0 bottom-0 top-1/3 bg-glow" />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-14 animate-fade-up">
+            <span className="inline-block text-xs font-semibold tracking-wide uppercase bg-[var(--brand-muted)] text-[var(--brand)] px-3 py-1 rounded-full mb-4">
+              Built for MSPs
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Why MSPs choose SonicSaaS
+            </h2>
+            <p className="text-base text-[var(--muted-foreground)] leading-relaxed">
+              The four things SonicWall NSM, generic RMMs, and PowerShell scripts don&apos;t do.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+            {differentiators.map((item, i) => (
+              <div
+                key={item.title}
+                className="flex gap-4 animate-fade-up"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-lg bg-[var(--brand-muted)] text-[var(--brand)]">
+                  <item.icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                  <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
       <section className="relative px-6 py-20 bg-[var(--secondary)] bg-noise overflow-hidden">
         <div className="relative z-10 max-w-5xl mx-auto">
@@ -103,10 +172,10 @@ export default function Home() {
               <a
                 key={feature.title}
                 href={demoHref(feature.demoPath)}
-                className="block animate-fade-up bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 hover:-translate-y-0.5 hover:shadow-md transition-all group"
+                className="block animate-fade-up bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 hover:-translate-y-0.5 hover:shadow-md hover:ring-1 hover:ring-[var(--brand)]/20 transition-all group"
                 style={{ animationDelay: `${i * 80}ms` }}
               >
-                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-[var(--brand-muted)] text-[var(--brand)] mb-4">
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-[var(--brand-muted)] group-hover:bg-[var(--brand)]/15 text-[var(--brand)] mb-4 transition-colors">
                   <feature.icon className="h-5 w-5" />
                 </div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-[var(--brand)] transition-colors">
