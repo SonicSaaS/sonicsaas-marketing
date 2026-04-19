@@ -13,8 +13,10 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
-// Token expires after 72 hours
-const TOKEN_TTL_SECONDS = 72 * 60 * 60;
+// Demo token lifetime. Long enough that prospects can come back to the demo
+// without re-running the waitlist gauntlet, short enough that abandoned tokens
+// rotate out. Read-only auditor identity — no mutation risk from a stale token.
+const TOKEN_TTL_SECONDS = 30 * 24 * 60 * 60; // 30 days
 
 let tableClient: TableClient | undefined;
 let tableReady = false;
