@@ -102,7 +102,7 @@ export default function Home() {
       {/* Hero */}
       <section className="relative text-center px-6 py-24 sm:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-dot-grid opacity-40" />
-        <div className="absolute inset-x-0 bottom-0 top-1/3 bg-glow" />
+        <div className="absolute inset-x-0 top-16 h-2/3 bg-glow" />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--background)]" />
         <div className="relative max-w-3xl mx-auto animate-fade-up">
           <span className="inline-block text-xs font-semibold tracking-wide uppercase bg-[var(--brand-muted)] text-[var(--brand)] px-3 py-1 rounded-full mb-6">
@@ -127,9 +127,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Features */}
+      <section className="relative px-6 py-20 bg-[var(--secondary)] bg-noise overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern" />
+        <div className="relative z-10 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {features.map((feature, i) => (
+              <a
+                key={feature.title}
+                href={demoHref(feature.demoPath)}
+                className="block animate-fade-up bg-white/65 dark:bg-white/5 backdrop-blur-sm border border-white/70 dark:border-white/10 rounded-xl p-6 hover:-translate-y-0.5 hover:shadow-lg hover:bg-white/80 dark:hover:bg-white/10 hover:ring-1 hover:ring-[var(--brand)]/30 transition-all group"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-[var(--brand-muted)] group-hover:bg-[var(--brand)]/15 text-[var(--brand)] mb-4 transition-colors">
+                  <feature.icon className="h-5 w-5" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-[var(--brand)] transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
+                  {feature.description}
+                </p>
+                <span className="inline-block mt-3 text-xs font-semibold text-[var(--brand)] opacity-0 group-hover:opacity-100 transition-opacity">
+                  {hasAccess ? "Try in demo" : "Join waitlist to try"} &rarr;
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Differentiators */}
       <section className="relative px-6 py-20 overflow-hidden">
-        <div className="absolute inset-x-0 bottom-0 top-1/3 bg-glow" />
         <div className="relative z-10 max-w-5xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-14 animate-fade-up">
             <span className="inline-block text-xs font-semibold tracking-wide uppercase bg-[var(--brand-muted)] text-[var(--brand)] px-3 py-1 rounded-full mb-4">
@@ -164,37 +193,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="relative px-6 py-20 bg-[var(--secondary)] bg-noise overflow-hidden">
-        <div className="relative z-10 max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {features.map((feature, i) => (
-              <a
-                key={feature.title}
-                href={demoHref(feature.demoPath)}
-                className="block animate-fade-up bg-[var(--card)] border border-[var(--border)] rounded-xl p-6 hover:-translate-y-0.5 hover:shadow-md hover:ring-1 hover:ring-[var(--brand)]/20 transition-all group"
-                style={{ animationDelay: `${i * 80}ms` }}
-              >
-                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-[var(--brand-muted)] group-hover:bg-[var(--brand)]/15 text-[var(--brand)] mb-4 transition-colors">
-                  <feature.icon className="h-5 w-5" />
-                </div>
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-[var(--brand)] transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="text-sm text-[var(--muted-foreground)] leading-relaxed">
-                  {feature.description}
-                </p>
-                <span className="inline-block mt-3 text-xs font-semibold text-[var(--brand)] opacity-0 group-hover:opacity-100 transition-opacity">
-                  {hasAccess ? "Try in demo" : "Join waitlist to try"} &rarr;
-                </span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Bottom CTA */}
-      <section id="waitlist" className="text-center px-6 pt-20 pb-40 scroll-mt-32">
+      <section id="waitlist" className="relative text-center px-6 pt-20 pb-40 bg-[var(--secondary)] bg-noise scroll-mt-32">
         <div className="max-w-2xl mx-auto animate-fade-up">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
             Ready to stop managing firewalls one at a time?

@@ -117,6 +117,26 @@ a {
   background-size: 24px 24px;
 }
 
+/* Stronger dot pattern for use on muted/secondary backgrounds where --border
+   blends in. Slightly larger dots, more contrast. background-attachment:fixed
+   creates a parallax effect — dots stay put while the section scrolls. */
+.bg-grid-pattern {
+  background-image: radial-gradient(
+    circle,
+    hsl(240 5% 75%) 1.25px,
+    transparent 1.5px
+  );
+  background-size: 22px 22px;
+  background-attachment: fixed;
+}
+.dark .bg-grid-pattern {
+  background-image: radial-gradient(
+    circle,
+    hsl(240 5% 35%) 1.25px,
+    transparent 1.5px
+  );
+}
+
 /* Noise texture overlay (SVG-based, no external files) */
 .bg-noise {
   position: relative;
