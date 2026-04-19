@@ -25,7 +25,7 @@ export const metadata: Metadata = {
       "The only fleet management platform built for MSPs who manage SonicWall firewalls. Fleet dashboard, security audits, bidirectional IT Glue sync, ConnectWise integration, and SOC 2-grade audit trails.",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "SonicSaaS — Modern SonicWall Fleet Management for MSPs",
     description:
       "The only fleet management platform built for MSPs who manage SonicWall firewalls. Fleet dashboard, security audits, bidirectional IT Glue sync, ConnectWise integration, and SOC 2-grade audit trails.",
