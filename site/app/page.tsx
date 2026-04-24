@@ -131,13 +131,12 @@ export default function Home() {
       <section className="relative px-6 py-20 bg-[var(--secondary)] bg-noise overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern" />
         <div className="relative z-10 max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {features.map((feature, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-children">
+            {features.map((feature) => (
               <a
                 key={feature.title}
                 href={demoHref(feature.demoPath)}
                 className="block animate-fade-up bg-white/65 dark:bg-white/5 backdrop-blur-sm border border-white/70 dark:border-white/10 rounded-xl p-6 hover:-translate-y-0.5 hover:shadow-lg hover:bg-white/80 dark:hover:bg-white/10 hover:ring-1 hover:ring-[var(--brand)]/30 transition-all group"
-                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-[var(--brand-muted)] group-hover:bg-[var(--brand)]/15 text-[var(--brand)] mb-4 transition-colors">
                   <feature.icon className="h-5 w-5" />
@@ -171,12 +170,11 @@ export default function Home() {
               The four things SonicWall NSM, generic RMMs, and PowerShell scripts don&apos;t do.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-            {differentiators.map((item, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 stagger-children">
+            {differentiators.map((item) => (
               <div
                 key={item.title}
                 className="flex gap-4 animate-fade-up"
-                style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-lg bg-[var(--brand-muted)] text-[var(--brand)]">
                   <item.icon className="h-5 w-5" />
